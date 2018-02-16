@@ -1,12 +1,13 @@
 let Emporium = require('emporium');
 
-let emporium = new Emporium('Organize');
+let emporium = new Emporium('Reunite');
 
 emporium.pretty();
 
 let Schema = emporium.Schema;
 
 let ConfigurationSchema = new Schema('Configuration', {
+  activate: {type: Boolean, default: false},
   bounds: Array,
   columns: Number,
   display: Array,
