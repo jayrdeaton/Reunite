@@ -1,5 +1,5 @@
 {
-  "name": "terminal-organize",
+  "name": "reunite",
   "version": "1.0.0",
   "description": "MacOS terminal window organizing CLI",
   "main": "index.js",
