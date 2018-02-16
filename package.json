@@ -1,0 +1,26 @@
+{
+  "name": "terminal-organize",
+  "version": "1.0.0",
+  "description": "Organize terminal windows to fit in screen",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": [
+    "terminal",
+    "organize",
+    "windows",
+    "screen",
+    "fit"
+  ],
+  "author": "Jay Deaton",
+  "license": "ISC",
+  "bin": {
+    "organize": "./index.js"
+  },
+  "dependencies": {
+    "cosmetic": "^1.1.1",
+    "emporium": "^1.8.0",
+    "termkit": "^1.2.2"
+  }
+}
