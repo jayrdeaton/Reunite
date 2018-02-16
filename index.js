@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 let term = require('termkit'),
   cosmetic = require('cosmetic'),
   { activateWindow, countWindows, getDisplaySize, getWindowBounds, getWindowSize, makeNewWindow, repositionWindow, resizeWindow } = require('./helpers'),

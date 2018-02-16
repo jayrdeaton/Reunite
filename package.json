@@ -1,12 +1,14 @@
 {
   "name": "terminal-organize",
   "version": "1.0.0",
-  "description": "Organize terminal windows to fit in screen",
+  "description": "MacOS terminal window organizing CLI",
   "main": "index.js",
   "scripts": {
     "test": "node test.js"
   },
   "keywords": [
+    "macos",
+    "mac",
     "terminal",
     "organize",
     "windows",
@@ -16,7 +18,7 @@
   "author": "Jay Deaton",
   "license": "ISC",
   "bin": {
-    "organize": "./index.js"
+    "reunite": "./index.js"
   },
   "dependencies": {
     "cosmetic": "^1.1.1",
