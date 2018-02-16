@@ -85,6 +85,10 @@ let program = term.command('Organize', '[layout]')
       };
       await activateWindow(positions.length + 1);
     };
+
+
+
+
     // let currentColumn = 1, currentRow = 1;
     // for (let i = 1; i <= count; i++) {
     //   let x = configuration.bounds[0] + configuration.size[0] * (currentColumn - 1) / columns;
