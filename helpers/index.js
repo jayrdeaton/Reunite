@@ -9,7 +9,8 @@ let activateWindow = require('./activateWindow'),
   getWindowSize = require('./getWindowSize'),
   makeNewWindow = require('./makeNewWindow'),
   repositionWindow = require('./repositionWindow'),
+  resizeWindow = require('./resizeWindow'),
   runCommand = require('./runCommand'),
   runOsascript = require('./runOsascript');
 
-module.exports = { activateWindow, countWindows, enterFullscreen, exitFullscreen, getDisplaySize, getDockSize, getFullscreen, getWindowBounds, getWindowSize, makeNewWindow, repositionWindow, runCommand, runOsascript };
+module.exports = { activateWindow, countWindows, enterFullscreen, exitFullscreen, getDisplaySize, getDockSize, getFullscreen, getWindowBounds, getWindowSize, makeNewWindow, repositionWindow, resizeWindow, runCommand, runOsascript };

@@ -48,8 +48,10 @@ let test = async () => {
   // await repositionWindow(1, 0, 0, 100000, 100000);
   // let winSize = await windowSize();
   // console.log(winSize)
-  await setup();
-  await move();
+  // await setup();
+  // await move();
+  let bounds = await getWindowBounds();
+  console.log(bounds);
 };
 
 let setup = async (columns, rows) => {

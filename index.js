@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 let term = require('termkit'),
   cosmetic = require('cosmetic'),
-  { activateWindow, countWindows, getDisplaySize, getWindowBounds, getWindowSize, makeNewWindow, repositionWindow } = require('./helpers'),
+  { activateWindow, countWindows, getDisplaySize, getWindowBounds, getWindowSize, makeNewWindow, repositionWindow, resizeWindow } = require('./helpers'),
   emporium = require('./emporium'),
   Configuration = emporium.models.Configuration;
 
@@ -14,7 +14,6 @@ let program = term.command('Organize', '[layout]')
   .action(async (err, options) => {
     if (err) return console.log(`${cosmetic.red(err.name)}: ${err.message}`);
     let display = await getDisplaySize();
-    let edit = false;
     let configuration = await Configuration.fetchOne({ display });
     if (!configuration) return console.log(`${cosmetic.red('Error:')} No configuration found for current display setup`);
 
@@ -22,14 +21,29 @@ let program = term.command('Organize', '[layout]')
     let rows = configuration.rows;
     if (options.layout) [ columns, rows ] = options.layout.split(/x/i);
 
+    let width = configuration.size[0] / columns
+    let height = configuration.size[1] / rows
+
     let count = await countWindows();
+
+    let positionsCount = count;
+
+    // let promises = [];
+    // let open = rows * columns - count;
+    // if (options.fill && open > 0) {
+    //   for (let i = 0; i < open; i++) promises.push(makeNewWindow());
+    //   count += open;
+    // }
+    // await Promise.all(promises);
+    // await activateWindow(open + 1);
+    if (options.fill && count < rows * columns) positionsCount = rows * columns;
+
+    let positions = [];
     let currentColumn = 1, currentRow = 1;
-    for (let i = 1; i <= count; i++) {
+    for (let i = 1; i <= positionsCount; i++) {
       let x = configuration.bounds[0] + configuration.size[0] * (currentColumn - 1) / columns;
       let y = configuration.bounds[1] + configuration.size[1] * (currentRow - 1) / rows;
-      let width = configuration.size[0] / columns;
-      let height = configuration.size[1] / rows;
-      await repositionWindow(i, x, y, width, height);
+      positions.push(`${Math.trunc(x)},${Math.trunc(y)}`);
       currentColumn++;
       if (currentColumn > columns) {
         currentColumn = 1;
@@ -37,23 +51,69 @@ let program = term.command('Organize', '[layout]')
         if (currentRow > rows) currentRow = 1;
       };
     };
-    if (options.fill && count < columns * rows) {
-      for (let i = count + 1; i <= columns * rows; i++) {
-        let x = configuration.bounds[0] + configuration.size[0] * (currentColumn - 1) / columns;
-        let y = configuration.bounds[1] + configuration.size[1] * (currentRow - 1) / rows;
-        let width = configuration.size[0] / columns;
-        let height = configuration.size[1] / rows;
-        await makeNewWindow(i);
-        await repositionWindow(1, x, y, width, height);
-        currentColumn++;
-        if (currentColumn > columns) {
-          currentColumn = 1;
-          currentRow++;
-          if (currentRow > rows) currentRow = 1;
-        };
-      };
-      await activateWindow(columns * rows - count + 1);
+
+    let moves = [];
+    let stay = [];
+    let promises = [];
+    for (let i = 1; i <= count; i++) {
+      let promise = getWindowBounds(i).then((bounds) => {
+        if (positions.includes(`${bounds[0]},${bounds[1]}`)) {
+          stay.push(...positions.splice(positions.indexOf(`${bounds[0]},${bounds[1]}`), 1));
+          if (Math.abs(height - (bounds[3] - bounds[1])) > 7) resizeWindow(i, width, height);
+        } else moves.push(i);
+      });
+      promises.push(promise);
     };
+    await Promise.all(promises);
+
+    promises = [];
+    for (let i of moves) {
+      let bounds = await getWindowBounds(i);
+      if (!stay.includes(`${bounds[0]},${bounds[1]}`)) {
+        let coordinates = positions.shift().split(',');
+        let promise = repositionWindow(i, coordinates[0], coordinates[1], width, height);
+        promises.push(promise);
+      };
+    };
+    await Promise.all(promises);
+
+    if (positions.length > 0) {
+      for (let i of positions) {
+        let coordinates = i.split(',');
+        await makeNewWindow();
+        await repositionWindow(1, coordinates[0], coordinates[1], width, height);
+      };
+      await activateWindow(positions.length + 1);
+    };
+    // let currentColumn = 1, currentRow = 1;
+    // for (let i = 1; i <= count; i++) {
+    //   let x = configuration.bounds[0] + configuration.size[0] * (currentColumn - 1) / columns;
+    //   let y = configuration.bounds[1] + configuration.size[1] * (currentRow - 1) / rows;
+    //   await repositionWindow(i, x, y, width, height);
+    //   currentColumn++;
+    //   if (currentColumn > columns) {
+    //     currentColumn = 1;
+    //     currentRow++;
+    //     if (currentRow > rows) currentRow = 1;
+    //   };
+    // };
+    // if (options.fill && count < columns * rows) {
+    //   for (let i = count + 1; i <= columns * rows; i++) {
+    //     let x = configuration.bounds[0] + configuration.size[0] * (currentColumn - 1) / columns;
+    //     let y = configuration.bounds[1] + configuration.size[1] * (currentRow - 1) / rows;
+    //     let width = configuration.size[0] / columns;
+    //     let height = configuration.size[1] / rows;
+    //     await makeNewWindow(i);
+    //     await repositionWindow(1, x, y, width, height);
+    //     currentColumn++;
+    //     if (currentColumn > columns) {
+    //       currentColumn = 1;
+    //       currentRow++;
+    //       if (currentRow > rows) currentRow = 1;
+    //     };
+    //   };
+    //   await activateWindow(columns * rows - count + 1);
+    // };
   })
   .commands([
     term.command('setup', '[layout]')
