@@ -84,7 +84,8 @@ let program = term.command('reunite', '[layout]')
     term.command('setup', '[layout]')
     .description('Set up new bounds for your organization')
     .options([
-      term.option('a', 'activate', null, 'Set terminal windows to come to foreground when reunited')
+      term.option('a', 'activate', null, 'Terminal windows come to foreground when reunited'),
+      term.option('n', 'no-activate', null, "Terminal windows don't come to foreground when reunited (default)")
     ])
     .action(async (err, options) => {
       if (err) return console.log(`${cosmetic.red(err.name)}: ${err.message}`);
@@ -98,6 +99,7 @@ let program = term.command('reunite', '[layout]')
       if (configuration) edit = true;
       if (!configuration) configuration = new Configuration();
       if (options.activate) configuration.activate = true;
+      if (options['no-activate']) configuration.activate = false;
       configuration.bounds = await getWindowBounds();
       configuration.columns = columns;
       configuration.display = display;
