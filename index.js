@@ -65,8 +65,6 @@ let program = term.command('reunite', '[layout]')
     };
     await Promise.all(promises);
 
-    console.log(positions)
-
     if (positions.length > 0) {
       for (let i of positions) {
         let coordinates = i.split(',');
