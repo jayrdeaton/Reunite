@@ -1,5 +1,4 @@
-let { countWindows, displaySize, enterFullscreen, exitFullscreen, getDockSize, getFullscreen, getWindowBounds, getWindowSize, repositionWindow } = require('./helpers'),
-  positions = require('./positions');
+let { countWindows, displaySize, getWindowBounds, getWindowSize, repositionWindow } = require('./helpers');
 
 let configuration = {
   columns: 4,
@@ -9,6 +8,11 @@ let configuration = {
 };
 
 let test = async () => {
+  let count = await countWindows();
+  console.log(count)
+  // let array = [1,2,3,4]
+  // array.splice(array.indexOf(3), 1);
+  // console.log(array);
   // let count = await countWindows();
   // let positionIndex = 0;
   // for (let i = 1; i <= count; i++) {
@@ -50,8 +54,8 @@ let test = async () => {
   // console.log(winSize)
   // await setup();
   // await move();
-  let bounds = await getWindowBounds();
-  console.log(bounds);
+  // let bounds = await getWindowBounds();
+  // console.log(bounds);
 };
 
 let setup = async (columns, rows) => {

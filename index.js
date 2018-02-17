@@ -45,31 +45,27 @@ let program = term.command('reunite', '[layout]')
         if (currentRow > rows) currentRow = 1;
       };
     };
-
     let moves = [];
-    let stay = [];
     let promises = [];
     for (let i = 1; i <= count; i++) {
-      let promise = getWindowBounds(i).then((bounds) => {
-        if (positions.includes(`${bounds[0]},${bounds[1]}`)) {
-          stay.push(...positions.splice(positions.indexOf(`${bounds[0]},${bounds[1]}`), 1));
-          if (Math.abs(height - (bounds[3] - bounds[1])) > 7 || Math.abs(width - (bounds[2] - bounds[0])) > 7) resizeWindow(i, width, height);
-        } else moves.push(i);
-      });
-      promises.push(promise);
+      let bounds = await getWindowBounds(i)
+      if (positions.includes(`${bounds[0]},${bounds[1]}`)) {
+        positions.splice(positions.indexOf(`${bounds[0]},${bounds[1]}`), 1);
+        if (Math.abs(height - (bounds[3] - bounds[1])) > 7 || Math.abs(width - (bounds[2] - bounds[0])) > 7) promises.push(resizeWindow(i, width, height));
+      } else moves.push(i);
     };
     await Promise.all(promises);
 
     promises = [];
     for (let i of moves) {
       let bounds = await getWindowBounds(i);
-      if (!stay.includes(`${bounds[0]},${bounds[1]}`)) {
-        let coordinates = positions.shift().split(',');
-        let promise = repositionWindow(i, coordinates[0], coordinates[1], width, height);
-        promises.push(promise);
-      };
+      let coordinates = positions.shift().split(',');
+      let promise = repositionWindow(i, coordinates[0], coordinates[1], width, height);
+      promises.push(promise);
     };
     await Promise.all(promises);
+
+    console.log(positions)
 
     if (positions.length > 0) {
       for (let i of positions) {
