@@ -1,9 +1,9 @@
-let { activateTerminal, activateWindow, countWindows, getDisplaySize, getWindowBounds, makeNewWindow, repositionWindow, resizeWindow } = require('./helpers'),
+let { activateTerminal, activateWindow, countWindows, doScript, getDisplaySize, getWindowBounds, makeNewWindow, repositionWindow, resizeWindow } = require('./helpers'),
   emporium = require('./emporium'),
   Configuration = emporium.models.Configuration;
 
 
-module.exports = async (options, add) => {
+module.exports = async (options, add, scripts) => {
   let display = await getDisplaySize();
   let configuration = await Configuration.fetchOne({ display });
   if (!configuration) return console.log(`${cosmetic.red('Error:')} No configuration found for current display setup`);
@@ -13,8 +13,8 @@ module.exports = async (options, add) => {
   let rows = configuration.rows;
   if (options.layout) [ columns, rows ] = options.layout.split(/x/i);
 
-  let width = configuration.size[0] / columns
-  let height = configuration.size[1] / rows
+  let width = Math.trunc(configuration.size[0] / columns);
+  let height = Math.trunc(configuration.size[1] / rows);
 
   let count = await countWindows();
 
@@ -56,11 +56,11 @@ module.exports = async (options, add) => {
   await Promise.all(promises);
 
   if (positions.length > 0) {
-    for (let i of positions) {
-      let coordinates = i.split(',');
-      await makeNewWindow();
+    if (!scripts) scripts = [''];
+    for (let [index, script] of scripts.entries()) {
+      let coordinates = positions[index].split(',');
+      await doScript(script);
       await repositionWindow(1, coordinates[0], coordinates[1], width, height);
     };
-    await activateWindow(positions.length + 1);
   };
 }

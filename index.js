@@ -25,11 +25,16 @@ let program = term.command('reunite', '[layout]')
       if (err) return console.log(`${cosmetic.red(err.name)}: ${err.message}`);
       await setup(options);
     }),
-    term.command('new', '[number]')
+    term.command('new', '[scripts...]')
     .description('Open new window in grid')
+    .options([
+      // term.option('n', 'number', '<number>', 'Run script in new windows')
+    ])
     .action(async (err, options) => {
       if (err) return console.log(`${cosmetic.red(err.name)}: ${err.message}`);
-      await reunite(options._parents.reunite, parseInt(options.number) || 1);
+      let add = 1;
+      if (options.scripts) add = options.scripts.length;
+      await reunite(options._parents.reunite, add, options.scripts);
     })
   ]);
 
