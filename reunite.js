@@ -35,6 +35,7 @@ module.exports = async (options, add, scripts) => {
       if (currentRow > rows) currentRow = 1;
     };
   };
+
   let moves = [];
   let promises = [];
   for (let i = 1; i <= count; i++) {
@@ -56,7 +57,10 @@ module.exports = async (options, add, scripts) => {
   await Promise.all(promises);
 
   if (positions.length > 0) {
-    if (!scripts) scripts = [''];
+    if (!scripts) {
+      scripts = [];
+      for (let position of positions) scripts.push('');
+    }
     for (let [index, script] of scripts.entries()) {
       let coordinates = positions[index].split(',');
       await doScript(script);
