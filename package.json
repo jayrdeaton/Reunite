@@ -2,8 +2,7 @@
   "name": "reunite",
   "version": "1.3.7",
   "description": "MacOS terminal window organizing CLI",
-  "main": "./index.js",
-  "preferGlobal": true,
+  "main": "index.js",
   "scripts": {
     "test": "node test.js"
   },
@@ -24,6 +23,6 @@
   "dependencies": {
     "cosmetic": "^1.1.1",
     "emporium": "^1.8.1",
-    "termkit": "^1.4.1"
+    "termkit": "^1.2.2"
   }
 }
