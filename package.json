@@ -19,7 +19,7 @@
   "author": "Jay Deaton",
   "license": "ISC",
   "bin": {
-    "reunite": "bin/reunite"
+    "reunite": "bin/reunite.js"
   },
   "dependencies": {
     "cosmetic": "^1.1.1",
