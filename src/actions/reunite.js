@@ -7,7 +7,7 @@ let { activateTerminal, activateWindow, countWindows, doScript, getDisplaySize, 
 module.exports = async (options, add, scripts) => {
   let display = await getDisplaySize();
   let configuration = await Configuration.fetchOne({ display });
-  if (!configuration) return console.log(`${cosmetic.red('Error:')} No configuration found for current display setup`);
+  if (!configuration) throw new Error('No configuration found for current display setup');
   if (configuration.activate) activateTerminal();
 
   let columns = configuration.columns;
@@ -18,7 +18,6 @@ module.exports = async (options, add, scripts) => {
   let height = Math.trunc(configuration.size[1] / rows);
 
   let count = await countWindows();
-
   let positionsCount = count;
   if (add) positionsCount += add;
   if (options.fill && count < rows * columns) positionsCount = rows * columns;

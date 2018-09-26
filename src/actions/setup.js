@@ -1,7 +1,8 @@
 let cosmetic = require('cosmetic'),
-{ getDisplaySize, getWindowBounds, getWindowSize } = require('../helpers'),
-emporium = require('../emporium'),
-Configuration = emporium.models.Configuration;
+  reunite = require('./reunite'),
+  { getDisplaySize, getWindowBounds, getWindowSize } = require('../helpers'),
+  emporium = require('../emporium'),
+  Configuration = emporium.models.Configuration;
 
 module.exports = async (options) => {
   let columns = 3, rows = 2;
@@ -20,7 +21,9 @@ module.exports = async (options) => {
   configuration.size = await getWindowSize();
   await configuration.save();
   if (edit) {
-    return console.log(`${cosmetic.green('Updated:')} Existing configuration for current display setup`);
+    console.log(`${cosmetic.green('Updated:')} Existing configuration for current display setup`);
+  } else {
+    console.log(`${cosmetic.green('Added:')} New configuration for current display setup`);
   };
-  return console.log(`${cosmetic.green('Added:')} New configuration for current display setup`);
+  await reunite({});
 };

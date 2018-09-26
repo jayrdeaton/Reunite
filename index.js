@@ -1,5 +1,19 @@
 #!/usr/bin/env node
 
-let { program } = require('./src');
+let { consoleIO, program } = require('./src'),
+  { printError } = consoleIO;
 
-program.parse(process.argv);
+let run = async(args) => {
+  try {
+    await program.parse(args);
+  } catch(err) {
+    printError(err);
+  };
+  process.exit();
+};
+
+process.on('exit', () => {
+
+});
+
+run(process.argv);
