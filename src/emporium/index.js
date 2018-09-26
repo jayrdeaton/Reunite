@@ -6,7 +6,7 @@ emporium.pretty();
 
 let Schema = emporium.Schema;
 
-let ConfigurationSchema = new Schema('Configuration', {
+let schema = new Schema('Configuration', {
   activate: {type: Boolean, default: false},
   bounds: Array,
   columns: Number,
@@ -15,8 +15,8 @@ let ConfigurationSchema = new Schema('Configuration', {
   size: Array
 });
 
-ConfigurationSchema.hide(['_id']);
+schema.hide(['_id']);
 
-emporium.add(ConfigurationSchema);
+emporium.add(schema);
 
 module.exports = emporium;

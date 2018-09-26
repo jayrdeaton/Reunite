@@ -1,6 +1,6 @@
 let cosmetic = require('cosmetic'),
-{ getDisplaySize, getWindowBounds, getWindowSize } = require('./helpers'),
-emporium = require('./emporium'),
+{ getDisplaySize, getWindowBounds, getWindowSize } = require('../helpers'),
+emporium = require('../emporium'),
 Configuration = emporium.models.Configuration;
 
 module.exports = async (options) => {

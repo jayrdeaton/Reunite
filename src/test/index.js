@@ -1,4 +1,4 @@
-let { countWindows, displaySize, getWindowBounds, getWindowSize, repositionWindow } = require('./helpers');
+let { countWindows, displaySize, getWindowBounds, getWindowSize, repositionWindow } = require('../helpers');
 
 let configuration = {
   columns: 4,
@@ -83,9 +83,9 @@ let move = async (columns, rows) => {
   };
 };
 
-test().catch((err) => {
-  console.log(err);
-});
+// test().catch((err) => {
+//   console.log(err);
+// });
 
 // -1734, -1006, -294, -106
 // topleft, bottomright

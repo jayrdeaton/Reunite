@@ -1,5 +1,5 @@
-let { activateTerminal, activateWindow, countWindows, doScript, getDisplaySize, getWindowBounds, makeNewWindow, repositionWindow, resizeWindow } = require('./helpers'),
-  emporium = require('./emporium'),
+let { activateTerminal, activateWindow, countWindows, doScript, getDisplaySize, getWindowBounds, makeNewWindow, repositionWindow, resizeWindow } = require('../helpers'),
+  emporium = require('../emporium'),
   cosmetic = require('cosmetic'),
   Configuration = emporium.models.Configuration;
 
