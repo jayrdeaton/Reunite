@@ -1,18 +1,3 @@
-declare module 'cosmetic' {
-  const cosmetic: {
-    green(s: string): string
-    red(s: string): string
-    yellow(s: string): string
-    blue(s: string): string
-    cyan(s: string): string
-    magenta(s: string): string
-    white(s: string): string
-    gray(s: string): string
-    bold(s: string): string
-  }
-  export = cosmetic
-}
-
 declare module 'termkit' {
   interface Options {
     [key: string]: unknown
