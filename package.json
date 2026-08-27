@@ -1,6 +1,6 @@
 {
   "name": "reunite",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Tile app windows into a saved grid layout",
   "keywords": [
     "cli",
