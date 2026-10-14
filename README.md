@@ -62,8 +62,8 @@ reunite new "npm run dev" "npm run test"
 |---------|-------|-------------|
 | Snap existing windows | ✓ | ✓ |
 | Multi-app targeting | ✓ | ✓ |
-| `--fill` / `new` (open Terminal windows) | ✓ | — |
-| Wayland | — | — |
+| `--fill` / `new` (open Terminal windows) | ✓ | - |
+| Wayland | - | - |
 
 ### Linux setup
 
@@ -96,7 +96,7 @@ reunite setup 3x2 --apps alacritty google-chrome code
 
 ## Config
 
-Layouts are stored in `~/.config/reunite/configs.json` — one entry per display. You can edit the file directly to adjust columns, rows, bounds, or the app list without re-running setup.
+Layouts are stored in `~/.config/reunite/configs.json` - one entry per display. You can edit the file directly to adjust columns, rows, bounds, or the app list without re-running setup.
 
 ```json
 [

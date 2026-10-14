@@ -41,7 +41,7 @@ const linux: Platform = {
   },
 
   doScript() {
-    throw new Error('Opening new terminal windows is not yet supported on Linux — use `--fill` only on macOS')
+    throw new Error('Opening new terminal windows is not yet supported on Linux: use `--fill` only on macOS')
   },
 
   getDisplaySize() {

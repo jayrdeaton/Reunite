@@ -1,4 +1,4 @@
-# Reunite — Modernization Plan
+# Reunite - Modernization Plan
 
 Reunite arranges terminal (and other app) windows into a saved grid layout for the current display.
 
@@ -15,7 +15,7 @@ All files move from `require`/`module.exports` to `import`/`export`.
 
 ### Storage: `emporium` → JSON file
 One model, a handful of rows. A JSON file at `~/.config/reunite/configs.json` is sufficient.
-No new dependency needed — `node:fs` reads and writes it directly.
+No new dependency needed - `node:fs` reads and writes it directly.
 
 ### Multi-app support
 - Default behavior: arrange windows across **all** visible apps using `System Events`
@@ -30,7 +30,7 @@ No new dependency needed — `node:fs` reads and writes it directly.
 
 ### CLI / termkit
 - Update to current termkit ESM API (matches Scripts conventions)
-- Clean up `version` subcommand — `--version` flag is enough
+- Clean up `version` subcommand - `--version` flag is enough
 
 ## File structure (target)
 ```

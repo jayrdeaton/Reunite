@@ -17,7 +17,7 @@ export default async function setup(options: Options): Promise<void> {
 
   const display = getDisplaySize()
   const wins = getWindows([measureApp])
-  if (wins.length === 0) throw new Error(`No windows found for "${measureApp}" — make sure it is open and visible`)
+  if (wins.length === 0) throw new Error(`No windows found for "${measureApp}": make sure it is open and visible`)
   const bounds = getWindowBounds(wins[0])
   const size: [number, number] = [bounds[2] - bounds[0], bounds[3] - bounds[1]]
 

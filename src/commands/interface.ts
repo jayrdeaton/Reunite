@@ -5,7 +5,7 @@ export interface WindowRef {
 
 export interface Platform {
   activateApp(app: string): void
-  // Opens a new terminal window and optionally runs a script. Platform-specific — darwin only for now.
+  // Opens a new terminal window and optionally runs a script. Platform-specific - darwin only for now.
   doScript(script?: string): void
   getDisplaySize(): number[]
   // Returns all windows for the given apps, or all visible windows when the list is empty.

@@ -36,7 +36,7 @@ export default async function reunite(options: Options, add?: number, scripts?: 
   if (layout) [columns, rows] = layout.split(/x/i).map(Number)
 
   const config = find(display)
-  if (!config) throw new Error('No configuration found for current display — run `reunite setup` first')
+  if (!config) throw new Error('No configuration found for current display: run `reunite setup` first')
 
   if (config.activate) config.apps.forEach(activateApp)
 
